@@ -1,5 +1,5 @@
 package date.me.com.cn.net;
 
 public interface NetTranslation {
-           int i
+           int i =1;
 }
