@@ -1,10 +1,9 @@
 package date.me.com.cn.view.widget;
-
-import javafx.scene.control.Label;
-
 /**
  * Created by shj on 17-3-12.
  */
+import javafx.scene.control.Label;
+
 public class FriendLabel extends Label {
     private Integer ischosen;
 

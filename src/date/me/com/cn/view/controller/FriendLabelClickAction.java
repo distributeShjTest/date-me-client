@@ -1,5 +1,7 @@
 package date.me.com.cn.view.controller;
-
+/**
+ * Created by wangjiahui on 17-3-12.
+ */
 import date.me.com.cn.view.widget.FriendLabel;
 import javafx.event.Event;
 import javafx.event.EventHandler;

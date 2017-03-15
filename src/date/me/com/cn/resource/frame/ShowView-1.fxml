@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="date.me.com.cn.view.controller.ShowView">
+   <children>
+      <SplitPane dividerPositions="0.06626506024096386" orientation="VERTICAL" prefHeight="500.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <HBox fx:id="hbox" layoutX="-50.0" layoutY="-21.0" prefHeight="29.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <ScrollPane layoutY="30.0" prefHeight="370.0" prefWidth="210.0">
+                     <content>
+                        <VBox fx:id="vbox" prefHeight="350.0" prefWidth="202.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="FriList" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="我的好友">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="UpdateList" layoutX="150.0" mnemonicParsing="false" onAction="#handleupdate" prefHeight="30.0" prefWidth="92.0" text="更新列表" />
+                  <Button fx:id="GroupChat" layoutX="242.0" layoutY="-1.0" mnemonicParsing="false" onAction="#sentMutipleMsg" prefHeight="30.0" prefWidth="150.0" text="发送群消息" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

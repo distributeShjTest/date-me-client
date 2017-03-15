@@ -23,8 +23,8 @@ public class ShakeThread extends Thread {
 //
 //        }
 
-        double x = FrListController.stage.getX();
-        double y = FrListController.stage.getY();
+        double x = ConversitionViewController1.stage.getX();
+        double y = ConversitionViewController1.stage.getY();
         for (int i = 0; i < 20; i++) {
             if ((i & 1) == 0) {
                 x += 3;
@@ -33,8 +33,8 @@ public class ShakeThread extends Thread {
                 x -= 3;
                 y -= 3;
             }
-            FrListController.stage.setX(x);
-            FrListController.stage.setY(y);
+            ConversitionViewController1.stage.setX(x);
+            ConversitionViewController1.stage.setY(y);
             try {
                 Thread.sleep(50);
             } catch (Exception e1) {

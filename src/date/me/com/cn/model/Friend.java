@@ -4,8 +4,8 @@ package date.me.com.cn.model;
  * Created by shj on 17-3-12.
  */
 public class Friend {
-    private Integer id;
-    private String name;
+    public Integer id;
+    public String name;
 
 
     @Override
