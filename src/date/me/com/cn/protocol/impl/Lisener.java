@@ -1,27 +1,20 @@
 package date.me.com.cn.protocol.impl;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-
-import org.json.JSONObject;
-
-import date.me.com.cn.net.*;
 import date.me.com.cn.service.impl.MsgSentlmpl;
+
+import java.util.List;
 public class Lisener implements Runnable {
 	   List id;
 	   List name;
 	   String msg;
 	   int msgtype;
-	   int i=0;
+	  // int i=0;
        Checkout checkout=new Checkout();
 	   MsgGet msgget=new MsgGet();
 	   LoadSucceed loadsucceed=new LoadSucceed();
 	   LoadFalse loadfalse=new LoadFalse();
 	   UpdateSucceed updatesucceed=new UpdateSucceed();
 	   myGetInfo mygetinfo=new myGetInfo();
-	   MsgSentlmpl mgsend=new MsgSentlmpl();
+	   MsgSentlmpl mgsend;
        @Override
        public void run(){
     	   while(true){
@@ -38,14 +31,9 @@ public class Lisener implements Runnable {
                  int type = mygetinfo.gettype();
                  switch(type){
                  case 0:
-                	 if(i==0){
-                		 i=i+1;
-                	 }
-                	 else{
                 	 Object o0=mygetinfo.getLoadsucceed();
                 	 mgsend.sent(o0,0);
                 	 System.out.println(o0.toString());
-                	 }
                 	 break;
                  
                 
@@ -70,4 +58,12 @@ public class Lisener implements Runnable {
                  
     	   }
        }
+
+	public MsgSentlmpl getMgsend() {
+		return mgsend;
+	}
+
+	public void setMgsend(MsgSentlmpl mgsend) {
+		this.mgsend = mgsend;
+	}
 }

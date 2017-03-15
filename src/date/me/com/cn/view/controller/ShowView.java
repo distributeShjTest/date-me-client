@@ -2,36 +2,31 @@ package date.me.com.cn.view.controller;
 /**
  * Created by wangjiahui on 17-3-12.
  */
-import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import date.me.com.cn.model.Friend;
 import date.me.com.cn.model.Msg;
-import date.me.com.cn.model.MsgMutipleSent;
-import date.me.com.cn.service.impl.MsgeSentImpl;
+import date.me.com.cn.service.MsgeSent;
 import date.me.com.cn.view.main.MainApp;
 import date.me.com.cn.view.widget.FriendLabel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public  class ShowView implements Initializable, FriendUpdate {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public  class ShowView extends AbstractController implements FriendUpdate {
 	// public class ShowView extends Application{
 
 	private MainApp application;
 	public void setApp(MainApp application) {
 		this.application = application;
 	}
-
 	@FXML
 	private HBox hbox;
 
@@ -58,22 +53,23 @@ public  class ShowView implements Initializable, FriendUpdate {
 
 	@FXML
 	private VBox vbox;
-	
+
+
+	private FriendLabelClickAction friendLabelClickAction = new FriendLabelClickAction();
+	public static List<Friend> Friends = new ArrayList<>();//所有好友的列表
+	public static List<Friend> friends = new ArrayList<>();//收信好友的列表
 	@FXML
 	public void handleupdate(){
 		Msg msg=new Msg();
 		msg.setUserid(LoginViewController.user.getUserid());
 		msg.setUsername(LoginViewController.user.getUsername());
 		msg.setMsgtype(1);
-		MsgeSentImpl msgeSentImpl = new MsgeSentImpl();
 		Object o=msg;
 		int type=2;
-    	msgeSentImpl.sent(o, type);
+		msgeSent.sent(o, type);
 	}
 	
-	private FriendLabelClickAction friendLabelClickAction = new FriendLabelClickAction();
-    public static List<Friend> Friends = new ArrayList<>();//所有好友的列表
-    public static List<Friend> friends = new ArrayList<>();//收信好友的列表
+
     
     
 //    private Label setlabel(String s){   
@@ -119,16 +115,30 @@ public  class ShowView implements Initializable, FriendUpdate {
 //       fr.add(f_1);
 //       fr.add(f_2);
 //       fr.add(f_3);
-		
-		if (list== null)
-			return;
-		for (Friend f : list) {
-			FriendLabel l = this.setLabel(f.getId(), f.getName());
-			System.out.println(this.vbox);
-			this.vbox.getChildren().add(l);
-			this.friendLabelClickAction.addLabel(l);
-		}
+//		if (list== null)
+//			return;
+//		for (Friend f : list) {
+//			FriendLabel l = this.setLabel(f.getId(), f.getName());
+//			System.out.println(this.vbox);
+//			this.vbox.getChildren().add(l);
+//			this.friendLabelClickAction.addLabel(l);
+//		}
+		UpdateFrListRunnable updateFrListRunnable = new UpdateFrListRunnable(this.friendLabelClickAction,this.vbox,list);
+		Platform.runLater(updateFrListRunnable);
 	}
+
+//	public  void updateListRunlater(List<Friend> list){
+//		if (list== null)
+//			return;
+//		for (Friend f : list) {
+//			FriendLabel l = this.setLabel(f.getId(), f.getName());
+//			System.out.println(this.vbox);
+//			this.vbox.getChildren().add(l);
+//			this.friendLabelClickAction.addLabel(l);
+//		}
+//	}
+
+
 
 
 	@FXML
@@ -174,5 +184,16 @@ public  class ShowView implements Initializable, FriendUpdate {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public MsgeSent getMsgeSent() {
+		return msgeSent;
+	}
+
+	public void setMsgeSent(MsgeSent msgeSent) {
+		this.msgeSent = msgeSent;
+	}
+
+
 
 }

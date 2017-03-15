@@ -3,18 +3,15 @@ package date.me.com.cn.service.impl;
 /**
  * Created by lipenghui on 17-3-12.
  */
-import java.util.List;
-
 import date.me.com.cn.model.Msg;
 import date.me.com.cn.protocol.impl.myLogining;
 import date.me.com.cn.protocol.impl.mySendMsg;
 import date.me.com.cn.protocol.impl.myUpdate;
 import date.me.com.cn.service.MsgeSent;
-import date.me.com.cn.view.controller.ConversitionViewController1;
-import date.me.com.cn.view.controller.LoginCheck;
-import date.me.com.cn.view.controller.ShakeThread;
 
 public class MsgeSentImpl implements MsgeSent {
+
+	private myLogining myLogining;
 
 	@Override
 	public void sent(Object o, int type) {
@@ -29,9 +26,11 @@ public class MsgeSentImpl implements MsgeSent {
 			if (o instanceof Msg) {
 				Msg msg = (Msg) o;
 				System.out.println(msg.getUsername()+","+msg.getPwd());
-				myLogining in=new myLogining(msg.getUsername(),msg.getPwd());
+//				myLogining in=new myLogining(msg.getUsername(),msg.getPwd());
+				this.myLogining.setUsername(msg.getUsername());
+				this.myLogining.setPwd(msg.getPwd());
 				try {
-					in.Loginin();
+					this.myLogining.Loginin();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -77,5 +76,13 @@ public class MsgeSentImpl implements MsgeSent {
 				}
 			}
 		}
+	}
+
+	public date.me.com.cn.protocol.impl.myLogining getMyLogining() {
+		return myLogining;
+	}
+
+	public void setMyLogining(date.me.com.cn.protocol.impl.myLogining myLogining) {
+		this.myLogining = myLogining;
 	}
 }

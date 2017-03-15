@@ -2,33 +2,30 @@ package date.me.com.cn.view.controller;
 /**
  * Created by wangjiahui on 17-3-12.
  */
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import date.me.com.cn.model.Friend;
 import date.me.com.cn.model.Msg;
-import date.me.com.cn.model.MsgMutipleSent;
-import date.me.com.cn.service.impl.MsgeSentImpl;
 import date.me.com.cn.view.main.MainApp;
-import date.me.com.cn.view.widget.FriendLabel;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class ConversitionViewController1 implements Initializable{
+import java.net.URL;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ConversitionViewController1 extends AbstractController{
 	public static Stage stage;
 
-	private MainApp application;  
-    public void setApp(MainApp application){  
-        this.application = application;  
-    }  
+	private MainApp application;
+
+//	private MsgeSent msgeSent;
+    public void setApp(MainApp application){
+        this.application = application;
+    }
     @FXML
     private Label label1;
     
@@ -81,10 +78,9 @@ public class ConversitionViewController1 implements Initializable{
 //    	ms.setMsg(msg);
 //    	ms.setType(2); 
 //    	System.out.println(msg);
-    	MsgeSentImpl msgeSentImpl = new MsgeSentImpl();
 		Object o=msg;
 		int type=1;
-    	msgeSentImpl.sent(o, type);
+    	msgeSent.sent(o, type);
     }
     
     @FXML
@@ -99,10 +95,9 @@ public class ConversitionViewController1 implements Initializable{
     	msg.setUsername(LoginViewController.user.getUsername());
     	msg.setUserid(LoginViewController.user.getUserid());
     	msg.setMsgtype(1);
-    	MsgeSentImpl msgeSentImpl = new MsgeSentImpl();
 		Object o=msg;
 		int type=1;
-    	msgeSentImpl.sent(o, type); 
+    	this.msgeSent.sent(o, type);
     	
 //    	System.out.println(msg);
 //    	System.out.println(ms.getType());
