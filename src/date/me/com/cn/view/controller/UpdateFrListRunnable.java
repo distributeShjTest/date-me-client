@@ -25,6 +25,7 @@ public class UpdateFrListRunnable implements Runnable {
     @Override
     public void run() {
         System.out.println(list);
+        this.vbox.getChildren().clear();
         if (list== null)
             return;
         for (Friend f : list) {

@@ -7,6 +7,7 @@ import date.me.com.cn.model.Msg;
 import date.me.com.cn.model.User;
 import date.me.com.cn.service.MsgeSent;
 import date.me.com.cn.view.main.MainApp;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,26 +41,28 @@ public class LoginViewController extends AbstractController {
 	private Label passwd;
 	
 	@FXML
-	private Button login;	
+	private Button login;
+
+	private Msg msg=new Msg();	
 	
 	@FXML
 	private void loginclick(){
 		user.setUsername(textfield.getText());
 		user.setPsd(psdfield.getText());
-//		System.out.println(textfield.getText()+"..."+psdfield.getText());
-//		LoginCheck lc=new LoginCheck();
-//		lc.setUser(user);
-//		lc.setType(0);
-		
-		Msg msg=new Msg();
+	
+		//Msg msg=new Msg();
 		msg.setUsername(LoginViewController.user.getUsername());
 		msg.setPwd(LoginViewController.user.getPsd());
 		msg.setMsgtype(0);
-//		MsgeSentImpl msgeSentImpl = new MsgeSentImpl();
+
 		Object o=msg;
 		int type=0;
+	
 		msgeSent.sent(o, type);
 		application.gotoshow();
+		ShowView.label=new Label();
+//		ShowUserNameRunable showname=new ShowUserNameRunable(ShowView.label,null,this.msg);
+//		Platform.runLater(showname);
 		//application.userlogin(lc.getLoginsuccess());
 	}
 	

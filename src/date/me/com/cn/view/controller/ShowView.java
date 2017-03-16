@@ -28,7 +28,7 @@ public  class ShowView extends AbstractController implements FriendUpdate {
 		this.application = application;
 	}
 	@FXML
-	private HBox hbox;
+	public static Label label;
 
 	@FXML
 	private Button FriList;
@@ -49,15 +49,12 @@ public  class ShowView extends AbstractController implements FriendUpdate {
 	private Button button3;
 
 	@FXML
-	private Label passwd;
-
-	@FXML
 	private VBox vbox;
 
-
 	private FriendLabelClickAction friendLabelClickAction = new FriendLabelClickAction();
-	public static List<Friend> Friends = new ArrayList<>();//所有好友的列表
-	public static List<Friend> friends = new ArrayList<>();//收信好友的列表
+	public static List<Friend> Friends=new ArrayList();//所有好友的列表
+	public static List<Friend> friends=new ArrayList();//收信好友的列表
+	
 	@FXML
 	public void handleupdate(){
 		Msg msg=new Msg();
@@ -68,20 +65,7 @@ public  class ShowView extends AbstractController implements FriendUpdate {
 		int type=2;
 		msgeSent.sent(o, type);
 	}
-	
-
-    
-    
-//    private Label setlabel(String s){   
-//    	Label label = new Label();
-//    	label.setText(s);
-//    	this.hbox.getChildren().addAll(label);
-//        return label;
-//   	}
-    
-    //LoginViewController.user.getUsername()
-
-        
+	     
 	private FriendLabel setLabel(Integer id, String text) {
 		FriendLabel label = new FriendLabel();
 		label.setId(id.toString());
@@ -93,85 +77,30 @@ public  class ShowView extends AbstractController implements FriendUpdate {
 	
 	//���º����б�
 	public void updatelist(List<Friend> list) {
-		
-//		UpdateList updatelist=new UpdateList();	
-//		updatelist.setU(LoginViewController.user);
-//		updatelist.setType(0);
-//		Object oj=LoginViewController.user;
-//		updatelist.sendUpdaterequest(oj, 0);
-//		
-//		List<Friend> fr=updatelist.getFriends();
-		
-//	   List<Friend> fr=new ArrayList<Friend>();
-//	   Friend f_1 = new Friend();
-//       Friend f_2 = new Friend();
-//       Friend f_3 = new Friend();
-//       f_1.setId(1);
-//       f_1.setName("shj");
-//       f_2.setId(2);
-//       f_2.setName("deadfish");
-//       f_3.setId(6);
-//       f_3.setName("dongzhao84");
-//       fr.add(f_1);
-//       fr.add(f_2);
-//       fr.add(f_3);
-//		if (list== null)
-//			return;
-//		for (Friend f : list) {
-//			FriendLabel l = this.setLabel(f.getId(), f.getName());
-//			System.out.println(this.vbox);
-//			this.vbox.getChildren().add(l);
-//			this.friendLabelClickAction.addLabel(l);
-//		}
+
 		UpdateFrListRunnable updateFrListRunnable = new UpdateFrListRunnable(this.friendLabelClickAction,this.vbox,list);
 		Platform.runLater(updateFrListRunnable);
 	}
 
-//	public  void updateListRunlater(List<Friend> list){
-//		if (list== null)
-//			return;
-//		for (Friend f : list) {
-//			FriendLabel l = this.setLabel(f.getId(), f.getName());
-//			System.out.println(this.vbox);
-//			this.vbox.getChildren().add(l);
-//			this.friendLabelClickAction.addLabel(l);
-//		}
-//	}
-
-
-
-
 	@FXML
 	//Ⱥ����Ϣ
 	public void sentMutipleMsg() {
-//		System.out.println(this.friendLabelClickAction);
+
 		List<Integer> frids = this.friendLabelClickAction.getIsChosenFrId();
+		System.out.println("there is a Friend"+Friends);
 		for(Friend fr:Friends){
 			for(int i:frids)
 				if(i==fr.getId()){
-    			 friends.add(fr);
+    			 ShowView.friends.add(fr);
     		}
     	}
+		System.out.println("there is a bug"+friends);
 		if (frids == null)
 			return;
 		System.out.println(frids);
 		application.gototalk();
 		
 	}
-
-	//显示接收消息
-//	public void AcquireMessage(List<Friend> f,String content){
-//			GetMsg gm=new GetMsg();
-//			Msg m=gm.getMsg();
-//			int type=m.getMsgtype();
-//			String text=m.getContent();
-//			if(type==1){
-//				ConversitionViewController1.label5.setText(text);
-//				application.gototalk();
-//			}else if(type==2){
-//				MainApp.shake();
-//			}
-//		}
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -184,7 +113,6 @@ public  class ShowView extends AbstractController implements FriendUpdate {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	public MsgeSent getMsgeSent() {
 		return msgeSent;

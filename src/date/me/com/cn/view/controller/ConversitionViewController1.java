@@ -5,6 +5,7 @@ package date.me.com.cn.view.controller;
 import date.me.com.cn.model.Friend;
 import date.me.com.cn.model.Msg;
 import date.me.com.cn.view.main.MainApp;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ConversitionViewController1 extends AbstractController{
+public class ConversitionViewController1 extends AbstractController implements Message{
 	public static Stage stage;
 
 	private MainApp application;
@@ -39,7 +40,7 @@ public class ConversitionViewController1 extends AbstractController{
     private Label label4;
     
     @FXML
-    static Label label5;
+    private Label label5;
     
     @FXML
     private Button button1;
@@ -63,12 +64,12 @@ public class ConversitionViewController1 extends AbstractController{
     private void shake(){
 		new ShakeThread().start();
 	}
-    
+    private Msg msg=new Msg();
     
     @FXML
     //发送窗口抖动
     public void handleshake(){
-    	Msg msg=new Msg();
+    	//Msg msg=new Msg();
     	msg.setUserid(LoginViewController.user.getUserid());
     	msg.setUsername(LoginViewController.user.getUsername());
     	msg.setContent(null);
@@ -87,24 +88,40 @@ public class ConversitionViewController1 extends AbstractController{
     //发送文本消息
 	private void handlesend() {
     	
-    	Msg msg=new Msg();
-    	msg.setTime(new Date().getTime());
-    	msg.setContent(textarea.getText());
-    	msg.setFrlist(ShowView.friends);
-    	msg.setMsgtype(1);
-    	msg.setUsername(LoginViewController.user.getUsername());
-    	msg.setUserid(LoginViewController.user.getUserid());
-    	msg.setMsgtype(1);
-		Object o=msg;
-		int type=1;
-    	this.msgeSent.sent(o, type);
+    	//Msg msg=new Msg();
+//    	if(textarea.getText()==null){
+//    		return;
+//    		textarea.setText("信息不能为空");
+//    		ShowMsgRunable showmsgrunable=new ShowMsgRunable(this.label5,this.label4,this.label3,this.label2,this.textarea,this.msg,this.msgeSent);
+//	    	Platform.runLater(showmsgrunable);
+//    	}else{
+	    	msg.setTime(new Date().getTime());
+	    	msg.setContent(textarea.getText());
+	    	msg.setFrlist(ShowView.friends);
+	    	System.out.println(ShowView.friends+"................");
+	    	msg.setMsgtype(1);
+	    	msg.setUsername(LoginViewController.user.getUsername());
+	    	msg.setUserid(LoginViewController.user.getUserid());
+	    	Object o=msg;
+			int type=1;		
+			this.msgeSent.sent(o, type);
+	    	ShowMsgRunable showmsgrunable=new ShowMsgRunable(this.label5,this.label4,this.label3,this.label2,this.textarea,this.msg,this.msgeSent);
+	    	Platform.runLater(showmsgrunable); 
+    //	}
     	
-//    	System.out.println(msg);
-//    	System.out.println(ms.getType());
     	
-		String text=textarea.getText();
-		label5.setText(text);
-		textarea.setText("");
+//    	ShowMsgRunable showmsgrunable=new ShowMsgRunable(label5,textarea,msg,this.msgeSent);
+//    	Platform.runLater(showmsgrunable);
+//		Object o=msg;
+//		int type=1;		
+//    	this.msgeSent.sent(o, type);
+//    	
+//    	String text=textarea.getText();
+//		label5.setText(text);
+//		textarea.setText("");
+
+    	
+		
 	}
 	
 	@FXML
@@ -120,12 +137,15 @@ public class ConversitionViewController1 extends AbstractController{
 	
 	//显示接收消息
 	public  void AcquireMessage(List<Friend> f,Msg msg){
-		GetMsg gm=new GetMsg();
-		Msg m=gm.getMsg();
-		int type=m.getMsgtype();
-		if(type==1){
-			application.gototalk();
-		}
+//		GetMsg gm=new GetMsg();
+//		Msg m=gm.getMsg();
+//		int type=m.getMsgtype();
+		if(msg.getMsgtype()==1)
+			System.out.println("gototalk");
+		application.gototalk();
+		ShowUserNameRunable showname=new ShowUserNameRunable(null,this.label5,msg);
+		Platform.runLater(showname);
+		
 		
 	}
 //	public void sentMutipleMsg() {

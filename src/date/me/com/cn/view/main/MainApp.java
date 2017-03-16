@@ -94,7 +94,7 @@ public class MainApp extends Application {
 			this.stageSizeToScene();
 			main.setApp(this);
 
-			this.msgSentlmpl.setShowview(main);
+//			this.msgSentlmpl.setShowview(main);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -241,6 +241,9 @@ public class MainApp extends Application {
 			e.printStackTrace();
 			logger.warning(e.getMessage());
 		}
+		this.msgSentlmpl.setShowview((ShowView)this.pageMap.get(PageEnum.SHOWVIEW.getValue()).getInitializable());
+		this.msgSentlmpl.setMessage((Message)this.pageMap.get(PageEnum.CONVERSATIONPAGE.getValue()).getInitializable());
+		
 
 	}
 

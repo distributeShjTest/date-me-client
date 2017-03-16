@@ -4,6 +4,7 @@ import date.me.com.cn.net.*;
 import date.me.com.cn.net.impl.myNetTranslation;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -15,6 +16,17 @@ public class mySendMsg {
 	public List id;
 	public int msgtype;
 	public String msg;
+    public mySendMsg(){
+    	id=new ArrayList();
+    }
+    
+	public List getId() {
+		return id;
+	}
+
+	public void setId(List id) {
+		this.id = id;
+	}
 
 	public mySendMsg(List id, int msgtype, String msg, Long time) {
 		this.id = id;
@@ -39,5 +51,10 @@ public class mySendMsg {
 		myJson.put("msg", msg);
 		myJson.put("msgtype", msgtype);
 		mynettranslation.SendJsonObject(myJson);
+	}
+
+	@Override
+	public String toString() {
+		return "mySendMsg [time=" + time + ", id=" + id + ", msgtype=" + msgtype + ", msg=" + msg + "]";
 	}
 }

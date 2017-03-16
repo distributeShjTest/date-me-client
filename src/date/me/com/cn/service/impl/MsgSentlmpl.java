@@ -5,10 +5,12 @@ package date.me.com.cn.service.impl;
  */
 
 import date.me.com.cn.model.Friend;
+import date.me.com.cn.model.Msg;
 import date.me.com.cn.protocol.impl.LoadFalse;
 import date.me.com.cn.protocol.impl.LoadSucceed;
 import date.me.com.cn.protocol.impl.MsgGet;
 import date.me.com.cn.service.MsgSent;
+import date.me.com.cn.view.controller.Message;
 import date.me.com.cn.view.controller.ShowView;
 import date.me.com.cn.view.main.MainApp;
 
@@ -16,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MsgSentlmpl implements MsgSent {
-    private ShowView showview = new ShowView();
-
+    private ShowView showview;
+    private Message Message;
     @Override
     public void sent(Object o, int type) {
 
@@ -31,18 +33,22 @@ public class MsgSentlmpl implements MsgSent {
 //				Boolean loginok=true;
 
 //				UpdateList updateList = new UpdateList();
-
-                Friend friend = new Friend();
+//                int id;
+//                String name;
+               
                 List<Friend> list = new ArrayList();
                 for (int i = 0; i < loadSucceed.getId().size(); i++) {
+                	Friend friend = new Friend();
                     Integer a = Integer.parseInt(loadSucceed.getId().get(i).toString());
                     String b = (String) loadSucceed.getName().get(i);
                     friend.setId(a);
                     friend.setName(b);
                     list.add(friend);
+                   
+                    System.out.println(list.get(i).getName() +","+ list.get(i).getId());
                 }
-                System.out.println(list.get(1).getName() + list.get(1).getId());
-                //	ShowView.Friends = list;
+                System.out.println(list);
+                	ShowView.Friends = list;
                 showview.updatelist(list);
 //				LoginViewController.loginreturn(list,loginok);
 
@@ -72,7 +78,7 @@ public class MsgSentlmpl implements MsgSent {
             // 收到文本消息
             else if (msgGet.getMsgtype() == 1) {
 //				ConversitionViewController1 c = new ConversitionViewController1();
-                ShowView sv = new ShowView();
+//                ShowView sv = new ShowView();
                 List<Friend> l = ShowView.Friends;
 //				List<Friend> l = ShowView.Friends;
                 String name = null;
@@ -81,6 +87,18 @@ public class MsgSentlmpl implements MsgSent {
                         name = f.getName();
                     }
                 }
+              
+                Msg msg = new Msg();
+                msg.setFrlist(l);
+                msg.setContent(msgGet.getMsg());
+                msg.setMsgtype(msgGet.getMsgtype());
+                msg.setTime(msgGet.getTime());
+                List<String> idList = new ArrayList<>();
+                idList.add(String.valueOf(msgGet.getId()));
+                msg.setUserid(idList);
+         
+                this.Message.AcquireMessage(null, msg);
+                
 //				sv.AcquireMessage(name, msgGet.getMsg());
 //				c.AcquireMessage(name, msgGet.getMsg());
             }
@@ -94,7 +112,24 @@ public class MsgSentlmpl implements MsgSent {
         // }
     }
 
-    public ShowView getShowview() {
+    
+    
+    
+    public Message getMessage() {
+		return Message;
+	}
+
+
+
+
+	public void setMessage(Message message) {
+		Message = message;
+	}
+
+
+
+
+	public ShowView getShowview() {
         return showview;
     }
 
